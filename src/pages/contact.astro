@@ -1,0 +1,111 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title="Contact" description="Get in touch with Reidho Satria for collaborations, open-source work, or security research.">
+    <div class="card-base px-6 md:px-9 py-7 rounded-[var(--radius-large)] onload-animation">
+        <div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">Get in Touch</div>
+        <h1 class="text-3xl md:text-4xl font-bold text-90 mb-3 leading-snug">Let's connect and collaborate</h1>
+        <div class="text-75 mb-6">
+            I'm always open to discussing security research, open-source projects, defensive automation, and network hardening. Reach out through any of these channels.
+        </div>
+
+        <!-- Email Section -->
+        <div class="card-base px-6 md:px-8 py-5 mb-5 border border-black/10 dark:border-white/10 rounded-[var(--radius-large)]">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-[var(--btn-regular-bg)] flex items-center justify-center flex-shrink-0">
+                    <Icon name="material-symbols:mail-outline" class="text-2xl text-[var(--btn-content)]" />
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide mb-1">Primary Contact</div>
+                    <a href="mailto:contact@rei.my.id" class="link-underline text-xl md:text-2xl font-bold text-90 block mb-1">
+                        contact@rei.my.id
+                    </a>
+                    <p class="text-50 text-sm">Best for collaboration inquiries and project discussions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Grid -->
+        <div class="mb-5">
+            <h2 class="text-xl font-bold text-90 mb-4">Social & Professional</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- GitHub -->
+                <a href="https://github.com/elliottophellia" target="_blank" rel="noreferrer" 
+                   class="card-base px-6 py-5 group hover:bg-[var(--btn-card-bg-hover)] active:bg-[var(--btn-card-bg-active)] transition">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-black/5 dark:bg-white/10 flex items-center justify-center flex-shrink-0">
+                            <Icon name="fa6-brands:github" class="text-2xl text-90" />
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-bold text-90 mb-1 group-hover:text-[var(--primary)] transition flex items-center gap-1">
+                                GitHub
+                                <Icon name="material-symbols:chevron-right-rounded" class="text-xl opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition" />
+                            </div>
+                            <div class="text-50 text-sm mb-1">elliottophellia</div>
+                            <p class="text-50 text-xs">Open-source projects and contributions</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Twitter -->
+                <a href="https://twitter.com/elliottophellia" target="_blank" rel="noreferrer" 
+                   class="card-base px-6 py-5 group hover:bg-[var(--btn-card-bg-hover)] active:bg-[var(--btn-card-bg-active)] transition">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-black/5 dark:bg-white/10 flex items-center justify-center flex-shrink-0">
+                            <Icon name="fa6-brands:x-twitter" class="text-2xl text-90" />
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-bold text-90 mb-1 group-hover:text-[var(--primary)] transition flex items-center gap-1">
+                                Twitter
+                                <Icon name="material-symbols:chevron-right-rounded" class="text-xl opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition" />
+                            </div>
+                            <div class="text-50 text-sm mb-1">@elliottophellia</div>
+                            <p class="text-50 text-xs">Tech updates and security insights</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/elliottophellia" target="_blank" rel="noreferrer" 
+                   class="card-base px-6 py-5 group hover:bg-[var(--btn-card-bg-hover)] active:bg-[var(--btn-card-bg-active)] transition">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-black/5 dark:bg-white/10 flex items-center justify-center flex-shrink-0">
+                            <Icon name="fa6-brands:linkedin" class="text-2xl text-90" />
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-bold text-90 mb-1 group-hover:text-[var(--primary)] transition flex items-center gap-1">
+                                LinkedIn
+                                <Icon name="material-symbols:chevron-right-rounded" class="text-xl opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition" />
+                            </div>
+                            <div class="text-50 text-sm mb-1">elliottophellia</div>
+                            <p class="text-50 text-xs">Professional networking</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Discord -->
+                <div class="card-base px-6 py-5 cursor-default">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-black/5 dark:bg-white/10 flex items-center justify-center flex-shrink-0">
+                            <Icon name="fa6-brands:discord" class="text-2xl text-90" />
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-bold text-90 mb-1">Discord</div>
+                            <div class="text-50 text-sm mb-1">@elliottophellia</div>
+                            <p class="text-50 text-xs">Real-time chat and discussions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Response Time Note -->
+        <div class="px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+            <p class="text-50 text-sm text-center">
+                💬 Response time: 24-48 hours • For urgent matters, email works best
+            </p>
+        </div>
+    </div>
+</MainGridLayout>

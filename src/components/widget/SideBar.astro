@@ -1,8 +1,8 @@
 ---
 import type { MarkdownHeading } from "astro";
-import Categories from "./Categories.astro";
+import { Icon } from "astro-icon/components";
 import Profile from "./Profile.astro";
-import Tag from "./Tags.astro";
+import WidgetLayout from "./WidgetLayout.astro";
 
 interface Props {
 	class?: string;
@@ -11,12 +11,74 @@ interface Props {
 
 const className = Astro.props.class;
 ---
-<div id="sidebar" class:list={[className, "w-full"]}>
+<div id="sidebar" class:list={[className, "w-full h-full"]}>
     <div class="flex flex-col w-full gap-4 mb-4">
         <Profile></Profile>
     </div>
     <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
-        <Categories class="onload-animation" style="animation-delay: 150ms"></Categories>
-        <Tag class="onload-animation" style="animation-delay: 200ms"></Tag>
+        <WidgetLayout name="Contact" id="contact" isCollapsed={false} class="onload-animation" style="animation-delay: 150ms">
+            <div class="flex flex-col gap-3 text-sm">
+                <div class="rounded-lg p-3 bg-[var(--btn-regular-bg)]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <Icon name="material-symbols:mail-outline" class="text-lg text-[var(--btn-content)]" />
+                        <div class="font-semibold text-[var(--btn-content)] text-xs uppercase tracking-wide">Email</div>
+                    </div>
+                    <a href="mailto:contact@rei.my.id" class="link-underline text-90 font-medium break-all text-xs">contact@rei.my.id</a>
+                </div>
+                <div>
+                    <div class="font-semibold text-50 text-xs uppercase tracking-wide mb-2.5 flex items-center gap-1.5">
+                        <Icon name="material-symbols:link" class="text-base" />
+                        Social Links
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <a href="https://github.com/elliottophellia" target="_blank" rel="noreferrer" 
+                           class="group rounded-lg px-3 py-2 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-all flex items-center gap-2.5">
+                            <Icon name="fa6-brands:github" class="text-base text-75 group-hover:text-[var(--primary)] transition flex-shrink-0" />
+                            <div class="flex-1 min-w-0">
+                                <div class="text-75 group-hover:text-[var(--primary)] transition font-medium text-xs">GitHub</div>
+                                <div class="text-50 text-[10px] truncate">elliottophellia</div>
+                            </div>
+                            <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[10px] text-50 group-hover:text-[var(--primary)] transition flex-shrink-0" />
+                        </a>
+                        <a href="https://twitter.com/elliottophellia" target="_blank" rel="noreferrer" 
+                           class="group rounded-lg px-3 py-2 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-all flex items-center gap-2.5">
+                            <Icon name="fa6-brands:x-twitter" class="text-base text-75 group-hover:text-[var(--primary)] transition flex-shrink-0" />
+                            <div class="flex-1 min-w-0">
+                                <div class="text-75 group-hover:text-[var(--primary)] transition font-medium text-xs">Twitter</div>
+                                <div class="text-50 text-[10px] truncate">@elliottophellia</div>
+                            </div>
+                            <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[10px] text-50 group-hover:text-[var(--primary)] transition flex-shrink-0" />
+                        </a>
+                        <a href="https://linkedin.com/in/elliottophellia" target="_blank" rel="noreferrer" 
+                           class="group rounded-lg px-3 py-2 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-all flex items-center gap-2.5">
+                            <Icon name="fa6-brands:linkedin" class="text-base text-75 group-hover:text-[var(--primary)] transition flex-shrink-0" />
+                            <div class="flex-1 min-w-0">
+                                <div class="text-75 group-hover:text-[var(--primary)] transition font-medium text-xs">LinkedIn</div>
+                                <div class="text-50 text-[10px] truncate">elliottophellia</div>
+                            </div>
+                            <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[10px] text-50 group-hover:text-[var(--primary)] transition flex-shrink-0" />
+                        </a>
+                        <div class="rounded-lg px-3 py-2 bg-black/5 dark:bg-white/5 flex items-center gap-2.5">
+                            <Icon name="fa6-brands:discord" class="text-base text-75 flex-shrink-0" />
+                            <div class="flex-1 min-w-0">
+                                <div class="text-75 font-medium text-xs">Discord</div>
+                                <div class="text-50 text-[10px] truncate">@elliottophellia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </WidgetLayout>
+        <WidgetLayout name="Visitors" id="visitor-count" isCollapsed={false} class="onload-animation" style="animation-delay: 200ms">
+            <div class="flex justify-center p-3 rounded-lg bg-[var(--btn-regular-bg)]">
+                <img 
+                    src="https://api.sefinek.net/api/v2/moecounter/@reidho?length=7&theme=default&pixelated=false" 
+                    alt="Visitor Counter"
+                    class="h-22"
+                    style="filter: brightness(0.9) saturate(0.8); opacity: 0.85;"
+                    loading="lazy"
+                />
+            </div>
+        </WidgetLayout>
     </div>
 </div>
