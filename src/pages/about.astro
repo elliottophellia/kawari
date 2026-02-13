@@ -2,6 +2,7 @@
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import AchievementTimeline from "@components/AchievementTimeline.astro";
 
 const aboutPost = await getEntry("spec", "about");
 
@@ -10,15 +11,35 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
+
+// Achievements data - easy to extend with more achievements
+const achievements = [
+	{
+		title: "Sriwijaya Cyber Security Competition 2026",
+		event: "3rd Place",
+		date: "2026-02-07",
+		description: "Secured 3rd place in the qualification round of the Sriwijaya Cyber Security Competition 2026.",
+	},
+];
 ---
+
 <MainGridLayout title="About" description="About Reidho Satria">
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
-        <div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
-            <div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">About</div>
-            <h1 class="text-3xl md:text-4xl font-bold text-90 mb-3 leading-snug">Reidho Satria</h1>
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
-        </div>
-    </div>
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
+			<div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">About</div>
+			<h1 class="text-3xl md:text-4xl font-bold text-90 mb-3 leading-snug">Reidho Satria</h1>
+			<Markdown class="mt-2">
+				<Content />
+			</Markdown>
+		</div>
+	</div>
+
+	{/* Achievements Section */}
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
+			<div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide mb-2">Achievements</div>
+			<h2 class="text-2xl md:text-3xl font-bold text-90 mb-6 leading-snug">Timeline</h2>
+			<AchievementTimeline achievements={achievements} />
+		</div>
+	</div>
 </MainGridLayout>
