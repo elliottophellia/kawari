@@ -35,6 +35,28 @@ const featured = projects.slice(0, 4);
     </div>
 
     <div class="card-base px-6 md:px-8 py-6 rounded-[var(--radius-large)] mt-4 onload-animation">
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div>
+                    <div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">Achievements</div>
+                    <h2 class="text-2xl font-bold text-90">Recent Competition Highlights</h2>
+                    <p class="text-50 mt-1">A few highlights from recent competitions. The rest lives in the full archive.</p>
+                </div>
+                <a href={url("/achievements/")} class="btn-plain h-10 px-4 rounded-lg font-bold active:scale-95">View all achievements</a>
+            </div>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                {recentAchievements.map((entry, idx) => (
+                    <AchievementCard
+                        entry={entry}
+                        class="onload-animation"
+                        style={`animation-delay: calc(var(--content-delay) + ${idx * 70}ms);`}
+                    />
+                ))}
+            </div>
+        </div>
+    </div>
+
+    <div class="card-base px-6 md:px-8 py-6 rounded-[var(--radius-large)] mt-4 onload-animation">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5">
             <div>
                 <div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">Projects</div>
@@ -152,28 +174,6 @@ const featured = projects.slice(0, 4);
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-base px-6 md:px-8 py-6 rounded-[var(--radius-large)] mt-4 onload-animation">
-        <div class="flex flex-col gap-4">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                <div>
-                    <div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">Achievements</div>
-                    <h2 class="text-2xl font-bold text-90">Recent Competition Highlights</h2>
-                    <p class="text-50 mt-1">A few highlights from recent competitions. The rest lives in the full archive.</p>
-                </div>
-                <a href={url("/achievements/")} class="btn-plain h-10 px-4 rounded-lg font-bold active:scale-95">View all achievements</a>
-            </div>
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
-                {recentAchievements.map((entry, idx) => (
-                    <AchievementCard
-                        entry={entry}
-                        class="onload-animation"
-                        style={`animation-delay: calc(var(--content-delay) + ${idx * 70}ms);`}
-                    />
-                ))}
             </div>
         </div>
     </div>

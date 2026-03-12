@@ -31,7 +31,6 @@ const achievementsCollection = defineCollection({
 		published: z.date(),
 		updated: z.date().optional(),
 		draft: z.boolean().optional().default(false),
-		description: z.string().optional().default(""),
 		rank: z.string(),
 		eventType: z.string(),
 		writeupUrl: z.string().optional().default(""),
