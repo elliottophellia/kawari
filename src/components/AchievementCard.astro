@@ -1,0 +1,126 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	entry: CollectionEntry<"achievements">;
+	class?: string;
+	style?: string;
+}
+
+const { entry, class: className, style } = Astro.props;
+const { title, published, rank, eventType, writeupUrl } = entry.data;
+
+function formatDate(date: Date): string {
+	return date.toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	});
+}
+---
+
+<article class:list={[
+	"achievement-card flex flex-col w-full rounded-xl overflow-hidden border border-black/5 dark:border-white/10 bg-black/5 dark:bg-white/5",
+	className,
+]} style={style}>
+	<div class="px-6 md:px-8 py-6 flex flex-col gap-5 h-full">
+		<div class="flex items-start justify-between gap-3">
+			<div class="flex flex-wrap items-center gap-2 text-sm">
+				<span class="achievement-type">{eventType}</span>
+				<span class="achievement-date">{formatDate(published)}</span>
+			</div>
+			<div class="achievement-rank" aria-label={`Rank ${rank}`}>
+				<span class="achievement-rank-value">{rank}</span>
+				<span class="achievement-rank-label">Rank</span>
+			</div>
+		</div>
+
+		<div class="flex-1 min-w-0">
+			<h3 class="font-bold text-xl text-90 leading-snug tracking-[-0.02em] max-w-[18ch]">
+				{title}
+			</h3>
+		</div>
+
+		<div class="achievement-footer">
+			<div class="achievement-stat">
+				<span class="achievement-stat-label">Result</span>
+				<span class="achievement-stat-value">Top {rank}</span>
+			</div>
+			{writeupUrl && <a href={writeupUrl} class="btn-regular h-10 px-4 rounded-lg font-bold active:scale-95" target="_blank" rel="noreferrer">Writeup</a>}
+		</div>
+	</div>
+</article>
+
+<style>
+	.achievement-type {
+		@apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium;
+		color: var(--primary);
+		background: color-mix(in oklch, var(--primary) 10%, transparent);
+	}
+
+	.achievement-date {
+		@apply text-sm font-medium;
+		color: rgb(0 0 0 / 0.5);
+	}
+
+	:global(.dark) .achievement-date {
+		color: rgb(255 255 255 / 0.5);
+	}
+
+	.achievement-rank {
+		@apply rounded-xl px-3 py-2 flex flex-col items-center justify-center text-center flex-shrink-0;
+		min-width: 4.5rem;
+		background: color-mix(in oklch, var(--primary) 10%, transparent);
+		color: var(--primary);
+		border: 1px solid color-mix(in oklch, var(--primary) 12%, transparent);
+	}
+
+	.achievement-rank-value {
+		@apply text-xl font-bold leading-none;
+		letter-spacing: -0.02em;
+	}
+
+	.achievement-rank-label {
+		@apply text-[0.7rem] uppercase font-semibold mt-1;
+		letter-spacing: 0.08em;
+		color: color-mix(in oklch, currentColor 72%, transparent);
+	}
+
+	.achievement-footer {
+		@apply flex items-end justify-between gap-3 pt-4;
+		border-top: 1px solid rgb(0 0 0 / 0.05);
+	}
+
+	:global(.dark) .achievement-footer {
+		border-top-color: rgb(255 255 255 / 0.1);
+	}
+
+	.achievement-stat {
+		@apply flex flex-col;
+	}
+
+	.achievement-stat-label {
+		@apply text-xs uppercase font-semibold;
+		letter-spacing: 0.08em;
+		color: rgb(0 0 0 / 0.5);
+	}
+
+	:global(.dark) .achievement-stat-label {
+		color: rgb(255 255 255 / 0.5);
+	}
+
+	.achievement-stat-value {
+		@apply text-base font-semibold mt-1;
+		color: rgb(0 0 0 / 0.9);
+	}
+
+	:global(.dark) .achievement-stat-value {
+		color: rgb(255 255 255 / 0.9);
+	}
+
+	@media (max-width: 520px) {
+		.achievement-footer {
+			@apply items-start flex-col;
+		}
+	}
+</style>

@@ -1,6 +1,6 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 
-type CollectionName = "projects";
+type CollectionName = "projects" | "achievements";
 
 // Retrieve entries and sort them by publication date
 async function getRawSortedEntries<T extends CollectionName>(
@@ -41,6 +41,10 @@ export async function getSortedProjects() {
 	return getSortedCollection("projects");
 }
 
+export async function getSortedAchievements() {
+	return getSortedCollection("achievements");
+}
+
 export type ProjectForList = {
 	slug: string;
 	data: CollectionEntry<"projects">["data"];
@@ -51,5 +55,21 @@ export async function getSortedProjectsList(): Promise<ProjectForList[]> {
 	return sortedFullProjects.map((project) => ({
 		slug: project.slug,
 		data: project.data,
+	}));
+}
+
+export type AchievementForList = {
+	slug: string;
+	data: CollectionEntry<"achievements">["data"];
+};
+
+export async function getSortedAchievementsList(): Promise<
+	AchievementForList[]
+> {
+	const sortedFullAchievements = await getRawSortedEntries("achievements");
+
+	return sortedFullAchievements.map((achievement) => ({
+		slug: achievement.slug,
+		data: achievement.data,
 	}));
 }

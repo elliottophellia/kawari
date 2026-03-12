@@ -133,10 +133,11 @@ const mainPanelTop = siteConfig.banner.enable
         
         // Only hide sidebar on listing/static pages, not on individual posts/projects
         const isProjectsListing = path === '/projects/' || path === '/projects';
+        const isAchievementsListing = path === '/achievements/' || path === '/achievements';
         const isAboutPage = path === '/about/' || path === '/about';
         const isContactPage = path === '/contact/' || path === '/contact';
         
-        const shouldHideSidebar = isProjectsListing || isAboutPage || isContactPage;
+        const shouldHideSidebar = isProjectsListing || isAchievementsListing || isAboutPage || isContactPage;
         
         const mainGrid = document.getElementById('main-grid');
         const sidebarContainer = document.getElementById('sidebar-container');
