@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
 
 interface Props {
 	entry: CollectionEntry<"achievements">;
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const { entry, class: className, style } = Astro.props;
-const { title, published, rank, eventType, writeupUrl } = entry.data;
+const { title, published, rank, eventType, writeupUrl, eventPlay, eventUrl } = entry.data;
 
 function formatDate(date: Date): string {
 	return date.toLocaleDateString("en-US", {
@@ -36,15 +37,24 @@ function formatDate(date: Date): string {
 		</div>
 
 		<div class="flex-1 min-w-0">
-			<h3 class="font-bold text-xl text-90 leading-snug tracking-[-0.02em] max-w-[18ch]">
-				{title}
-			</h3>
+			{eventUrl ? (
+				<a href={eventUrl} target="_blank" rel="noreferrer" class="group flex items-center gap-2 w-fit">
+					<h3 class="font-bold text-xl text-90 group-hover:text-[var(--primary)] transition-colors leading-snug tracking-[-0.02em] max-w-[18ch]">
+						{title}
+					</h3>
+					<Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.875rem] text-50 group-hover:text-[var(--primary)] transition-colors mt-1" />
+				</a>
+			) : (
+				<h3 class="font-bold text-xl text-90 leading-snug tracking-[-0.02em] max-w-[18ch]">
+					{title}
+				</h3>
+			)}
 		</div>
 
 		<div class="achievement-footer">
 			<div class="achievement-stat">
-				<span class="achievement-stat-label">Result</span>
-				<span class="achievement-stat-value">Top {rank}</span>
+				<span class="achievement-stat-label">PLAYING</span>
+				<span class="achievement-stat-value">{eventPlay}</span>
 			</div>
 			{writeupUrl && <a href={writeupUrl} class="btn-regular h-10 px-4 rounded-lg font-bold active:scale-95" target="_blank" rel="noreferrer">Writeup</a>}
 		</div>
@@ -123,4 +133,5 @@ function formatDate(date: Date): string {
 			@apply items-start flex-col;
 		}
 	}
+</style>
 </style>

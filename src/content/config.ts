@@ -33,6 +33,8 @@ const achievementsCollection = defineCollection({
 		draft: z.boolean().optional().default(false),
 		rank: z.string(),
 		eventType: z.string(),
+		eventPlay: z.string(),
+		eventUrl: z.string().optional(),
 		writeupUrl: z.string().optional().default(""),
 
 		/* For internal use */
