@@ -22,6 +22,10 @@ interface Props {
 	lang?: string;
 	setOGTypeArticle?: boolean;
 	headings?: MarkdownHeading[];
+	image?: string;
+	publishedTime?: string;
+	modifiedTime?: string;
+	keywords?: string[];
 }
 
 const {
@@ -31,6 +35,10 @@ const {
 	lang,
 	setOGTypeArticle,
 	headings = [],
+	image,
+	publishedTime,
+	modifiedTime,
+	keywords,
 } = Astro.props;
 const hasBannerCredit =
 	siteConfig.banner.enable && siteConfig.banner.credit.enable;
@@ -41,7 +49,7 @@ const mainPanelTop = siteConfig.banner.enable
 	: "5.5rem";
 ---
 
-<Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
+<Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle} image={image} publishedTime={publishedTime} modifiedTime={modifiedTime} keywords={keywords}>
 
 <!-- Navbar -->
 <slot slot="head" name="head"></slot>
@@ -127,30 +135,30 @@ const mainPanelTop = siteConfig.banner.enable
 
 <script>
     let isInitialLoad = true;
-    
+
     function updateLayoutForPage() {
         const path = window.location.pathname;
-        
+
         // Only hide sidebar on listing/static pages, not on individual posts/projects
         const isProjectsListing = path === '/projects/' || path === '/projects';
         const isAchievementsListing = path === '/achievements/' || path === '/achievements';
         const isAboutPage = path === '/about/' || path === '/about';
         const isContactPage = path === '/contact/' || path === '/contact';
-        
+
         const shouldHideSidebar = isProjectsListing || isAchievementsListing || isAboutPage || isContactPage;
-        
+
         const mainGrid = document.getElementById('main-grid');
         const sidebarContainer = document.getElementById('sidebar-container');
         const swupContainer = document.getElementById('swup-container');
-        
+
         if (!mainGrid || !sidebarContainer || !swupContainer) return;
-        
+
         if (shouldHideSidebar) {
             // Add hiding animation only if not initial load
             if (!isInitialLoad) {
                 sidebarContainer.classList.remove('sidebar-showing');
                 sidebarContainer.classList.add('sidebar-hiding');
-                
+
                 // Wait for animation to complete before hiding
                 setTimeout(() => {
                     sidebarContainer.style.display = 'none';
@@ -159,15 +167,15 @@ const mainPanelTop = siteConfig.banner.enable
                 // Just hide immediately on initial load
                 sidebarContainer.style.display = 'none';
             }
-            
+
             // Adjust grid layout with transition
             mainGrid.classList.remove('grid-cols-[17.5rem_auto]', 'lg:grid-rows-[auto]');
             mainGrid.classList.add('grid-cols-1', 'grid-rows-[auto_1fr_auto]');
-            
+
             // Center content with expand animation
             swupContainer.classList.remove('col-span-2', 'lg:col-span-1');
             swupContainer.classList.add('col-span-1', 'max-w-5xl', 'mx-auto', 'w-full');
-            
+
             if (!isInitialLoad) {
                 swupContainer.classList.add('content-expanding');
                 setTimeout(() => {
@@ -177,37 +185,37 @@ const mainPanelTop = siteConfig.banner.enable
         } else {
             // Show sidebar
             sidebarContainer.style.display = '';
-            
+
             // Add showing animation only if not initial load
             if (!isInitialLoad) {
                 sidebarContainer.classList.remove('sidebar-hiding');
                 sidebarContainer.classList.add('sidebar-showing');
-                
+
                 // Remove animation class after it completes
                 setTimeout(() => {
                     sidebarContainer.classList.remove('sidebar-showing');
                 }, 400);
             }
-            
+
             // Restore grid layout
             mainGrid.classList.remove('grid-cols-1');
             mainGrid.classList.add('grid-cols-[17.5rem_auto]', 'lg:grid-rows-[auto]');
-            
+
             // Restore content layout
             swupContainer.classList.remove('col-span-1', 'max-w-5xl', 'mx-auto', 'w-full');
             swupContainer.classList.add('col-span-2', 'lg:col-span-1');
         }
-        
+
         // After first run, all subsequent calls are not initial load
         isInitialLoad = false;
     }
-    
+
     // Run on initial page load
     updateLayoutForPage();
-    
+
     const setup = () => {
         updateLayoutForPage();
-        
+
         // Run on Swup page transitions
         if (window.swup) {
             window.swup.hooks.on('page:view', () => {
@@ -215,7 +223,7 @@ const mainPanelTop = siteConfig.banner.enable
             });
         }
     }
-    
+
     if (window.swup) {
         setup();
     } else {

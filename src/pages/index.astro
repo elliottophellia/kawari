@@ -9,9 +9,39 @@ const achievements = await getSortedAchievements();
 const projects = await getSortedProjects();
 const recentAchievements = achievements.slice(0, 3);
 const featured = projects.slice(0, 4);
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": `${Astro.site}#website`,
+            "url": Astro.site,
+            "name": "Reidho Satria",
+            "description": "1337ophellia | CTF & InfoSec | GNU/Linux Enthusiast | Vice-President of @linuxuigm",
+            "publisher": { "@id": `${Astro.site}#person` },
+        },
+        {
+            "@type": "Person",
+            "@id": `${Astro.site}#person`,
+            "name": "Reidho Satria",
+            "url": Astro.site,
+            "image": `${Astro.site}favicon/favicon-light-192.png`,
+            "jobTitle": "CTF Player & Cybersecurity Analyst",
+            "description": "Passionate CTF player and Cybersecurity Analyst with hands-on experience in security research, vulnerability discovery, and open-source tooling.",
+            "sameAs": [
+                "https://twitter.com/elliottophellia",
+                "https://github.com/elliottophellia",
+                "https://instagram.com/elliottophellia",
+                "https://linkedin.com/in/elliottophellia",
+            ],
+        },
+    ],
+};
 ---
 
 <MainGridLayout title="Home" description="1337ophellia | CTF & InfoSec | GNU/Linux Enthusiast | Vice-President of @linuxuigm">
+    <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
     <div class="card-base px-6 md:px-9 py-7 rounded-[var(--radius-large)] onload-animation">
         <div class="flex flex-col gap-3">
             <div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">CTF Player &amp; Cybersecurity Analyst</div>

@@ -10,9 +10,38 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "AboutPage",
+			"@id": `${Astro.site}about/#page`,
+			"url": `${Astro.site}about/`,
+			"name": "About Reidho Satria",
+			"description": "About Reidho Satria – CTF Player and Cybersecurity Analyst based in Palembang, Indonesia.",
+			"mainEntity": { "@id": `${Astro.site}#person` },
+		},
+		{
+			"@type": "Person",
+			"@id": `${Astro.site}#person`,
+			"name": "Reidho Satria",
+			"url": Astro.site,
+			"image": `${Astro.site}favicon/favicon-light-192.png`,
+			"jobTitle": "CTF Player & Cybersecurity Analyst",
+			"sameAs": [
+				"https://twitter.com/elliottophellia",
+				"https://github.com/elliottophellia",
+				"https://instagram.com/elliottophellia",
+				"https://linkedin.com/in/elliottophellia",
+			],
+		},
+	],
+};
 ---
 
 <MainGridLayout title="About" description="About Reidho Satria">
+	<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
 	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
 		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
 			<div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">About</div>

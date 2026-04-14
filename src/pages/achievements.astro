@@ -4,9 +4,24 @@ import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedAchievements } from "@utils/content-utils";
 
 const achievements = await getSortedAchievements();
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "CollectionPage",
+	"@id": `${Astro.site}achievements/#page`,
+	"url": `${Astro.site}achievements/`,
+	"name": "Achievements – Reidho Satria",
+	"description": "Recent competition highlights and a growing archive of CTF results and writeups.",
+	"author": {
+		"@type": "Person",
+		"@id": `${Astro.site}#person`,
+		"name": "Reidho Satria",
+	},
+};
 ---
 
 <MainGridLayout title="Achievements" description="Recent competition highlights and a growing archive of CTF results and writeups.">
+	<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
 	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
 		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
 			<div class="text-sm font-semibold text-[var(--primary)] uppercase tracking-wide">Achievements</div>

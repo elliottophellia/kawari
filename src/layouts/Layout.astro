@@ -26,9 +26,13 @@ interface Props {
 	description?: string;
 	lang?: string;
 	setOGTypeArticle?: boolean;
+	image?: string;
+	publishedTime?: string;
+	modifiedTime?: string;
+	keywords?: string[];
 }
 
-let { title, banner, description, lang, setOGTypeArticle } = Astro.props;
+let { title, banner, description, lang, setOGTypeArticle, image, publishedTime, modifiedTime, keywords } = Astro.props;
 
 // apply a class to the body element to decide the height of the banner, only used for initial page load
 // Swup can update the body for each page visit, but it's after the page transition, causing a delay for banner height change
@@ -70,6 +74,27 @@ const bannerOffsetByPosition = {
 };
 const bannerOffset =
 	bannerOffsetByPosition[siteConfig.banner.position || "center"];
+
+// Twitter handle extracted from profileConfig
+const twitterLink = profileConfig.links.find((l) => l.name === 'Twitter');
+const twitterHandle = twitterLink?.url
+	? '@' + twitterLink.url.split('/').pop()
+	: undefined;
+
+// OG image — use page-level override, else site config, else favicon fallback
+const defaultOgImagePath = (siteConfig as any).ogImage || '/favicon/favicon-light-192.png';
+const ogImageUrl = image
+	? (image.startsWith('http') ? image : new URL(image, Astro.site).href)
+	: new URL(defaultOgImagePath, Astro.site).href;
+
+// Proper description fallback: subtitle, not pageTitle
+const pageDescription = description || siteConfig.subtitle;
+
+// Canonical URL (strip query params)
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+
+// OG locale (e.g. "en_US")
+const ogLocale = siteLang.replace('-', '_');
 ---
 
 <!DOCTYPE html>
@@ -81,26 +106,50 @@ const bannerOffset =
 		<title>{pageTitle}</title>
 
 		<meta charset="UTF-8" />
-		<meta name="description" content={description || pageTitle}>
+		<meta name="description" content={pageDescription}>
 		<meta name="author" content={profileConfig.name}>
+		<meta name="robots" content="index, follow" />
+		{keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
 
+		<!-- Canonical -->
+		<link rel="canonical" href={canonicalUrl} />
+
+		<!-- Open Graph -->
 		<meta property="og:site_name" content={siteConfig.title}>
 		<meta property="og:url" content={Astro.url}>
 		<meta property="og:title" content={pageTitle}>
-		<meta property="og:description" content={description || pageTitle}>
+		<meta property="og:description" content={pageDescription}>
+		<meta property="og:locale" content={ogLocale}>
+		<meta property="og:image" content={ogImageUrl}>
+		<meta property="og:image:alt" content={pageTitle}>
 		{setOGTypeArticle ? (
-        <meta property="og:type" content="article" />
-        ) : (
-        <meta property="og:type" content="website" />
-        )}
+			<meta property="og:type" content="article" />
+		) : (
+			<meta property="og:type" content="website" />
+		)}
+		{setOGTypeArticle && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+		{setOGTypeArticle && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+		{setOGTypeArticle && <meta property="article:author" content={profileConfig.name} />}
 
+		<!-- Twitter / X Card -->
 		<meta name="twitter:card" content="summary_large_image">
 		<meta property="twitter:url" content={Astro.url}>
 		<meta name="twitter:title" content={pageTitle}>
-		<meta name="twitter:description" content={description || pageTitle}>
+		<meta name="twitter:description" content={pageDescription}>
+		<meta name="twitter:image" content={ogImageUrl}>
+		<meta name="twitter:image:alt" content={pageTitle}>
+		{twitterHandle && <meta name="twitter:creator" content={twitterHandle} />}
+		{twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
 
+		<!-- Viewport & theme -->
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8f4ef" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1a1a" />
+
+		<!-- Apple touch icon -->
+		<link rel="apple-touch-icon" href="/favicon/favicon-light-180.png" />
+
 		{favicons.map(favicon => (
 			<link rel="icon"
 				  href={favicon.src.startsWith('/') ? url(favicon.src) : favicon.src}

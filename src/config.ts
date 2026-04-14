@@ -9,6 +9,7 @@ import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
   title: "Reidho Satria",
+  ogImage: "assets/images/banner.webp",
   subtitle:
     "1337ophellia | CTF & InfoSec | GNU/Linux Enthusiast | Vice-President of @linuxuigm",
   lang: "en", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
