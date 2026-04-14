@@ -10,7 +10,7 @@ import { LinkPreset } from "./types/config";
 export const siteConfig: SiteConfig = {
   title: "Reidho Satria",
   subtitle:
-    "1337ophellia | CTF & NetE | GNU/Linux Enthusiast | Vice-President of @linuxuigm",
+    "1337ophellia | CTF & InfoSec | GNU/Linux Enthusiast | Vice-President of @linuxuigm",
   lang: "en", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
   themeColor: {
     hue: 45, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -54,7 +54,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
   avatar: "assets/images/avatar.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: "Reidho Satria",
-  bio: "1337ophellia | CTF & NetE | GNU/Linux Enthusiast | Vice-President of @linuxuigm",
+  bio: "1337ophellia | CTF & InfoSec | GNU/Linux Enthusiast | Vice-President of @linuxuigm",
   links: [
     {
       name: "Twitter",
